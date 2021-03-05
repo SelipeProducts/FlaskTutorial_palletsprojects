@@ -1,3 +1,5 @@
+#Note: copy code from pt files and paste it into main to run
+
 #import pt0_intro
 
 # from flask import Flask, request, render_template
@@ -34,31 +36,46 @@
 
 
 #----------------------------------------
+# import random
+# from flask import request, Flask
 
-from flask import Flask, url_for
-from markupsafe import escape
+# app = Flask(__name__)
+
+# @app.route('/upload', methods=['GET', 'POST'])
+# def upload_file():
+#     if request.method == 'POST':
+#         f = request.files['the_file']
+#         f.save('/static/uploaded_file.txt')
+#         #f.save('/var/www/uploads/uploaded_file.txt')
+
+
+# if __name__ == '__main__':
+#   app.debug = True
+#   app.run(host='0.0.0.0',
+#   port=random.randint(2000, 9000))
+import random
+from flask import Flask, render_template, request
+from werkzeug import secure_filename
 
 app = Flask(__name__)
 
-@app.route('/')
-def index():
-    return 'index'
+@app.route('/upload')
+def upload_file():
+   return render_template('upload.html')
+	
+@app.route('/uploader', methods = ['GET', 'POST'])
+def upload_file2():
+   if request.method == 'POST':
+      f = request.files['file']
+      #f.save(f.filename)
+      f.save(secure_filename(f.filename))
+      return 'file uploaded successfully'
+		
+if __name__ == '__main__':
+   #app.run(debug = True)
+  app.debug = True
+  app.run(host='0.0.0.0',
+  port=random.randint(2000, 9000))
 
-@app.route('/login')
-def login():
-    return 'login'
 
-@app.route('/user/<username>')
-def profile(username):
-    return '{}\'s profile'.format(escape(username))
-
-with app.test_request_context():
-    print(url_for('index'))
-    print(url_for('login'))
-    print(url_for('login', next='/'))
-    print(url_for('profile', username='John Doe'))
-
-#Use the url_for() function to build a URL to a specific function
-#Function accepts the name of the function as its first argument and any number of keyword arguments, each corresponding to a variable part of the URL rule
-
-# test_request_context() tells Flask to behave as though it’s handling a request even while we use a Python shell
+#Got code from:  https://pythonbasics.org/flask-upload-file/
