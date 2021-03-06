@@ -1,6 +1,3 @@
-#Note: copy code from pt files and paste it into main to run
-
-#Book Notes:
 from flask import Flask, abort, redirect, url_for,  render_template, make_response
 import random
 
