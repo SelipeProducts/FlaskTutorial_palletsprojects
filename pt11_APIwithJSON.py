@@ -1,6 +1,3 @@
-#Note: copy code from pt files and paste it into main to run
-
-#Book Notes:
 from flask import Flask, jsonify
 import random, json
 #from flask.json.tag import JSONTag
