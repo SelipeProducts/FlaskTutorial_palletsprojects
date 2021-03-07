@@ -1,3 +1,7 @@
+#In addition to the request object there is also a second object called session 
+#which allows you to store information specific to a user from one request to the next. 
+#This is implemented on top of cookies for you and signs the cookies cryptographically. 
+#What this means is that the user could look at the contents of your cookie but not modify it, unless they know the secret key used for signing.
 
 from flask import Flask, session, redirect, url_for, request
 from markupsafe import escape
@@ -9,6 +13,7 @@ app = Flask(__name__)
 # Set the secret key to some random bytes. Keep this really secret!
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
+#Note:  escape() mentioned here does escaping for you if you are not using the template engine (as in this example).
 @app.route('/')
 def index():
     if 'username' in session:

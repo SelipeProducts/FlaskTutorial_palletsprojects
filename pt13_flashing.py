@@ -1,6 +1,3 @@
-#Note: copy code from pt files and paste it into main to run
-
-#Book Notes:
 import random
 from flask import Flask, flash, redirect, render_template, request, url_for
 
